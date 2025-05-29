@@ -8,6 +8,15 @@ Don't forget to install your node_modules before starting (`npm install`).
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/lostmart/Developpez-le-front-end-en-utilisant-Angular
+   cd telesport-olympic-dashboard
+   ```
+
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.

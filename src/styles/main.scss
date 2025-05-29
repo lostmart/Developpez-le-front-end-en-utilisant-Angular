@@ -1,0 +1,9 @@
+@import "variables";
+@import "mixins";
+@import "breakpoints";
+
+body {
+  font-family: $font-main;
+  background-color: $light-gray;
+  color: $dark-gray;
+}

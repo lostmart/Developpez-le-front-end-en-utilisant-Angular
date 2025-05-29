@@ -1,0 +1,25 @@
+// Responsive breakpoints
+$bp-sm: 576px;
+$bp-md: 768px;
+$bp-lg: 992px;
+$bp-xl: 1200px;
+
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == sm {
+    @media (max-width: $bp-sm) {
+      @content;
+    }
+  } @else if $breakpoint == md {
+    @media (max-width: $bp-md) {
+      @content;
+    }
+  } @else if $breakpoint == lg {
+    @media (max-width: $bp-lg) {
+      @content;
+    }
+  } @else if $breakpoint == xl {
+    @media (max-width: $bp-xl) {
+      @content;
+    }
+  }
+}
