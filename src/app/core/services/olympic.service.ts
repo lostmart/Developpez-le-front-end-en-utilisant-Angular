@@ -19,13 +19,13 @@ export class OlympicService {
         setTimeout(() => {
           return this.olympics$.next(value);
         }, 2000);
+        // throw new Error('this is a test error');
       }),
       catchError((error) => {
         const message = this.getErrorMessage(error);
         console.error('Error loading Olympic data:', error);
         this.olympics$.next(null);
-        return of([]); // or of(null) if your components handle nulls
-        // of([]) → returns an empty array, which avoids breaking a .subscribe() expecting a list.
+        return of([]); // of([]) → returns an empty array, which avoids breaking a .subscribe() expecting a list.
       })
     );
   }
