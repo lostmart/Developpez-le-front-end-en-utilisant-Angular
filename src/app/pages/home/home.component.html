@@ -14,4 +14,6 @@
   </ul>
 </div>
 
-<p *ngIf="!(olympics$ | async)"><em>Loading...</em></p>
+<div *ngIf="errorMessage" class="error-message">⚠️ {{ errorMessage }}</div>
+
+<p *ngIf="!(olympics$ | async) && !errorMessage"><em>Loading...</em></p>

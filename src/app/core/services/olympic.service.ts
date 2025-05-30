@@ -18,16 +18,22 @@ export class OlympicService {
       tap((value) => {
         setTimeout(() => {
           return this.olympics$.next(value);
-        }, 2000);
-        // throw new Error('this is a test error');
+        }, 1200);
+        // throw new Error('You application has ran into an error !!!');
       }),
       catchError((error) => {
         const message = this.getErrorMessage(error);
         console.error('Error loading Olympic data:', error);
         this.olympics$.next(null);
+        this.error$.next(message);
         return of([]); // of([]) → returns an empty array, which avoids breaking a .subscribe() expecting a list.
       })
     );
+  }
+
+  private error$ = new BehaviorSubject<string | null>(null);
+  getError(): Observable<string | null> {
+    return this.error$.asObservable();
   }
 
   getOlympics(): Observable<Olympic[] | null> {
