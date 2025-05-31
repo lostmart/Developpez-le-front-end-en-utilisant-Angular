@@ -7,3 +7,14 @@ body {
   background-color: $light-gray;
   color: $dark-gray;
 }
+g
+ul,
+li {
+  list-style-type: none;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
