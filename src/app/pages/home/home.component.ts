@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Olympic } from 'src/app/core/models/Olympic';
 
@@ -12,19 +12,32 @@ export class HomeComponent implements OnInit {
   public olympics$: Observable<Olympic[] | null> = of(null);
   public errorMessage: string | null = null;
 
+  private subscriptions = new Subscription();
+
   constructor(private olympicService: OlympicService) {}
 
   ngOnInit(): void {
-    this.olympicService.loadInitialData().subscribe();
+    this.subscriptions.add(this.olympicService.loadInitialData().subscribe());
 
     this.olympics$ = this.olympicService.getOlympics();
+
+    const errorSub = this.olympicService.getError().subscribe((error) => {
+      if (error) {
+        this.errorMessage = error;
+      }
+    });
+    this.subscriptions.add(errorSub);
 
     this.olympicService.getError().subscribe((error) => {
       if (error) {
         this.errorMessage = error;
-        // optionally: show this in the UI with *ngIf
+        // optionally: show this in the UI with *ngIf - DONE
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe(); // Unsubscribe from all subscriptions
   }
 
   getTotalMedals(country: Olympic): number {
