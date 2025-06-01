@@ -5,9 +5,9 @@
     [class.opening]="!isClosing && showDialog"
     (click)="$event.stopPropagation()"
   >
-    <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-content">
       <div class="modal-header">
-        <h2 class="modal-title">Dialogue title</h2>
+        <h2 class="modal-title">{{ title }}</h2>
         <button
           type="button"
           class="btn"

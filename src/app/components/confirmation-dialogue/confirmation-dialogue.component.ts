@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-confirmation-dialogue',
@@ -7,24 +7,26 @@ import { Component } from '@angular/core';
   styleUrl: './confirmation-dialogue.component.scss',
 })
 export class ConfirmationDialogueComponent {
-  showDialog: boolean = true;
-  isClosing = false;
+  @Input({ required: true }) title!: string;
+  @Input({ required: true }) showDialog!: boolean;
+  @Input({ required: true }) isClosing!: boolean;
 
-  openDialog(): void {
-    this.showDialog = true;
-  }
+  @Output() closed = new EventEmitter<boolean>();
+  @Output() setIsClosing = new EventEmitter<boolean>();
 
   onConfirm(): void {
-    this.isClosing = true;
+    this.setIsClosing.emit(true);
     setTimeout(() => {
-      this.showDialog = false;
-    }, 300);
+      this.closed.emit(false);
+      this.setIsClosing.emit(false);
+    }, 290);
   }
 
-  onCancel(e: MouseEvent): void {
-    this.isClosing = true;
+  onCancel(_e: MouseEvent): void {
+    this.setIsClosing.emit(true);
     setTimeout(() => {
-      this.showDialog = false;
-    }, 300);
+      this.closed.emit(false);
+      this.setIsClosing.emit(false);
+    }, 290);
   }
 }

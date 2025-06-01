@@ -26,7 +26,7 @@
     box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.2);
 
     &.closing {
-      animation: animateOut 0.3s ease-in forwards;
+      animation: animateOut 0.290s ease-in forwards;
     }
   }
 
@@ -115,12 +115,21 @@
 }
 
 @keyframes animateOut {
-  0% {
-    top: 0;
-    opacity: 1;
+  30% {
+    -webkit-transform: scale3d(0.9, 0.9, 0.9);
+    transform: scale3d(0.9, 0.9, 0.9);
   }
-  100% {
-    top: -300px;
+
+  53%,
+  55% {
+    opacity: 1;
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  to {
     opacity: 0;
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+    transform: scale3d(0.3, 0.3, 0.3);
   }
 }
