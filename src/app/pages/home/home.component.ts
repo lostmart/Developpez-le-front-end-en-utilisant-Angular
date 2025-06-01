@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, of, Subscription } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Olympic } from 'src/app/core/models/Olympic';
+import { DialogService } from 'src/app/core/services/dialog.service';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,14 @@ export class HomeComponent implements OnInit {
 
   private subscriptions = new Subscription();
 
-  constructor(private olympicService: OlympicService) {}
+  constructor(
+    private olympicService: OlympicService,
+    private dialogService: DialogService
+  ) {}
+
+  openConfirmationDialog(): void {
+    this.dialogService.triggerOpenDialog();
+  }
 
   ngOnInit(): void {
     this.subscriptions.add(this.olympicService.loadInitialData().subscribe());
@@ -31,6 +39,7 @@ export class HomeComponent implements OnInit {
     this.olympicService.getError().subscribe((error) => {
       if (error) {
         this.errorMessage = error;
+        this.openConfirmationDialog();
         // optionally: show this in the UI with *ngIf - DONE
       }
     });
