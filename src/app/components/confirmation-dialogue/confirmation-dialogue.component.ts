@@ -7,11 +7,24 @@ import { Component } from '@angular/core';
   styleUrl: './confirmation-dialogue.component.scss',
 })
 export class ConfirmationDialogueComponent {
-  onConfirm(): void {
-    console.log('Confirmed');
+  showDialog: boolean = true;
+  isClosing = false;
+
+  openDialog(): void {
+    this.showDialog = true;
   }
 
-  onCancel(): void {
-    console.log('Cancelled');
+  onConfirm(): void {
+    this.isClosing = true;
+    setTimeout(() => {
+      this.showDialog = false;
+    }, 300);
+  }
+
+  onCancel(e: MouseEvent): void {
+    this.isClosing = true;
+    setTimeout(() => {
+      this.showDialog = false;
+    }, 300);
   }
 }
