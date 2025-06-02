@@ -2,12 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, of, Subscription } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Olympic } from 'src/app/core/models/Olympic';
-import { DialogService } from 'src/app/core/services/dialog.service';
+// import { DialogService } from 'src/app/core/services/dialog.service';
+import { CommonModule } from '@angular/common';
+import { ErrorDisplayComponent } from 'src/app/components/error-display/error-display.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  standalone: true,
+  imports: [CommonModule, ErrorDisplayComponent],
 })
 export class HomeComponent implements OnInit {
   public olympics$: Observable<Olympic[] | null> = of(null);
@@ -17,29 +21,29 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private olympicService: OlympicService,
-    private dialogService: DialogService
+    // private dialogService: DialogService
   ) {}
 
-  openConfirmationDialog(): void {
-    this.dialogService.triggerOpenDialog();
-  }
+  // openConfirmationDialog(): void {
+  //   this.dialogService.triggerOpenDialog();
+  // }
 
   ngOnInit(): void {
     this.subscriptions.add(this.olympicService.loadInitialData().subscribe());
 
     this.olympics$ = this.olympicService.getOlympics();
 
-    const errorSub = this.olympicService.getError().subscribe((error) => {
-      if (error) {
-        this.errorMessage = error;
-      }
-    });
-    this.subscriptions.add(errorSub);
+    // const errorSub = this.olympicService.getError().subscribe((error) => {
+    //   if (error) {
+    //     this.errorMessage = error;
+    //   }
+    // });
+    // this.subscriptions.add(errorSub);
 
     this.olympicService.getError().subscribe((error) => {
       if (error) {
         this.errorMessage = error;
-        this.openConfirmationDialog();
+        // this.openConfirmationDialog();
         // optionally: show this in the UI with *ngIf - DONE
       }
     });
