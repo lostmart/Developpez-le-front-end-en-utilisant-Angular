@@ -16,7 +16,10 @@ export class OlympicService {
   loadInitialData(): Observable<Olympic[]> {
     return this.http.get<Olympic[]>(this.olympicUrl).pipe(
       delay(1200),
-      tap((value) => this.olympics$.next(value)),
+      tap((value) => {
+        return this.olympics$.next(value);
+        // throw new Error('Error loading Olympic data');
+      }),
       catchError((error) => {
         const message = this.getErrorMessage(error); // Now gets a string
         console.error('Error loading Olympic data:', error);

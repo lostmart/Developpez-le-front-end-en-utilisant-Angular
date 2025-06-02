@@ -9,9 +9,15 @@ import { AppComponent } from './app.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { ConfirmationDialogueComponent } from './components/confirmation-dialogue/confirmation-dialogue.component';
 
+import { NgChartsModule } from 'ng2-charts';
+
 @NgModule({
-  declarations: [AppComponent, NotFoundComponent, ConfirmationDialogueComponent],
-  imports: [BrowserModule, AppRoutingModule],
+  declarations: [
+    AppComponent,
+    NotFoundComponent,
+    ConfirmationDialogueComponent,
+  ],
+  imports: [BrowserModule, AppRoutingModule, NgChartsModule],
   providers: [provideHttpClient(withInterceptorsFromDi())],
   bootstrap: [AppComponent],
 })

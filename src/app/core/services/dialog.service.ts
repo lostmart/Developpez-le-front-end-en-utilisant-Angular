@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class DialogService {
-  private openDialogSubject = new Subject<void>(); // changed from BehaviorSubject<boolean>
+  private openDialogSubject = new Subject<void>();
   openDialog$ = this.openDialogSubject.asObservable();
 
   triggerOpenDialog() {
