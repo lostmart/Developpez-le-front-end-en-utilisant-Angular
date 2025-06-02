@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { catchError, delay, tap } from 'rxjs/operators';
+import { catchError, delay, map, tap } from 'rxjs/operators';
 import { Olympic } from '../models/Olympic';
 
 @Injectable({
@@ -10,6 +10,7 @@ import { Olympic } from '../models/Olympic';
 export class OlympicService {
   private olympicUrl = './assets/mock/olympic.json';
   private olympics$ = new BehaviorSubject<Olympic[] | null>(null);
+  private error$ = new BehaviorSubject<string | null>(null);
 
   constructor(private http: HttpClient) {}
 
@@ -17,20 +18,18 @@ export class OlympicService {
     return this.http.get<Olympic[]>(this.olympicUrl).pipe(
       delay(1200),
       tap((value) => {
-        return this.olympics$.next(value);
-        // throw new Error('Error loading Olympic data');
+        this.olympics$.next(value);
       }),
       catchError((error) => {
-        const message = this.getErrorMessage(error); // Now gets a string
+        const message = this.getErrorMessage(error);
         console.error('Error loading Olympic data:', error);
         this.olympics$.next(null);
-        this.error$.next(message); // Works because message is string
+        this.error$.next(message);
         return of([]);
       })
     );
   }
 
-  private error$ = new BehaviorSubject<string | null>(null);
   getError(): Observable<string | null> {
     return this.error$.asObservable();
   }
@@ -39,19 +38,19 @@ export class OlympicService {
     return this.olympics$.asObservable();
   }
 
-  // error handling
+  getOlympicById(id: number): Observable<Olympic | null> {
+    return this.getOlympics().pipe(
+      map((olympics) =>
+        olympics ? olympics.find((o) => o.id === id) ?? null : null
+      )
+    );
+  }
+
   private getErrorMessage(error: HttpErrorResponse): string {
-    let errorMessage = 'An unknown error occurred!';
-
     if (error.error instanceof ErrorEvent) {
-      // Client-side error
-      errorMessage = `Error: ${error.error.message}`;
+      return `Error: ${error.error.message}`;
     } else {
-      // Server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      return `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-
-    console.error(errorMessage);
-    return errorMessage; // Return string directly
   }
 }

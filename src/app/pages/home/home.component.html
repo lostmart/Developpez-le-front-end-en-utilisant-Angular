@@ -1,5 +1,5 @@
-<main class="container">
-  <h2>Olympic games app</h2>
+<main class="home-container">
+  <app-title-component title="Olympic Games" />
 
   <app-error-display [errorMessage]="errorMessage"></app-error-display>
 
@@ -7,7 +7,10 @@
     <em>Loading...</em>
   </p>
 
-  <app-pie-graph *ngIf="olympics$ | async as olympics" [data]="olympics"></app-pie-graph>
+  <app-pie-graph
+    *ngIf="olympics$ | async as olympics"
+    [data]="olympics"
+  ></app-pie-graph>
 
   <button>
     <span class="material-symbols-outlined">license</span>

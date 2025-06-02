@@ -8,6 +8,7 @@ import { ChartType } from 'chart.js';
 import { NgChartsModule } from 'ng2-charts';
 import { Router } from '@angular/router';
 import { PieGraphComponent } from 'src/app/components/pie-graph/pie-graph.component';
+import { TitleComponentComponent } from "../../components/ui/title-component/title-component.component";
 
 @Component({
   selector: 'app-home',
@@ -19,9 +20,11 @@ import { PieGraphComponent } from 'src/app/components/pie-graph/pie-graph.compon
     ErrorDisplayComponent,
     NgChartsModule,
     PieGraphComponent,
-  ],
+    TitleComponentComponent
+],
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  /*  TODO: change to app file  */
   public olympics$: Observable<Olympic[] | null> = of(null);
   public errorMessage: string | null = null;
 

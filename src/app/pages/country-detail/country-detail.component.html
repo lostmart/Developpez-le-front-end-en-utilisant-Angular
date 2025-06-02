@@ -1,1 +1,12 @@
-<p>country-detail works!</p>
+<ng-container *ngIf="country$ | async as country; else loading">
+  <section class="country-details">
+    <app-title-component [title]="country.country" />
+    <p>Total Medals: {{ country.country }}</p>
+    <p>Participation Count: {{ country.participations.length }}</p>
+    <button (click)="goBack()">back</button>
+  </section>
+</ng-container>
+
+<ng-template #loading>
+  <p>Loading country details...</p>
+</ng-template>

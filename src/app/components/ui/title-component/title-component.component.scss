@@ -1,0 +1,10 @@
+@import "variables";
+
+h2 {
+  background-color: $primary;
+  padding: 0.25em;
+  text-align: center;
+  color: white;
+  font-weight: 200;
+  border-radius: 0.25em;
+}
