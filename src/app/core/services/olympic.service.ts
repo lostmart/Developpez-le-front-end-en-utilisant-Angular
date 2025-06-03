@@ -15,6 +15,10 @@ export class OlympicService {
   constructor(private http: HttpClient) {}
 
   loadInitialData(): Observable<Olympic[]> {
+    if (this.olympics$.value) {
+      return of(this.olympics$.value);
+    }
+
     return this.http.get<Olympic[]>(this.olympicUrl).pipe(
       delay(1200),
       tap((value) => {
@@ -39,11 +43,16 @@ export class OlympicService {
   }
 
   getOlympicById(id: number): Observable<Olympic | null> {
-    return this.getOlympics().pipe(
-      map((olympics) =>
-        olympics ? olympics.find((o) => o.id === id) ?? null : null
-      )
-    );
+    if (this.olympics$.value) {
+      // If already loaded, return directly
+      return of(this.olympics$.value.find((o) => o.id === id) ?? null);
+    } else {
+      // Otherwise, fetch data and extract the one with matching ID
+      return this.loadInitialData().pipe(
+        map((olympics) => olympics.find((o) => o.id === id) ?? null),
+        catchError(() => of(null))
+      );
+    }
   }
 
   private getErrorMessage(error: HttpErrorResponse): string {
