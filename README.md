@@ -2,7 +2,70 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.3.
 
-Don't forget to install your node_modules before starting (`npm install`).
+This project is a front-end Angular application that displays Olympic data (e.g., countries, medals, events). It was developed as part of the training "Développez le front-end en utilisant Angular" and aims to demonstrate mastery of Angular concepts and best practices.
+
+
+## Project Structure & Architecture
+
+```
+src/
+│
+├── app/
+│   ├── components/       # Reusable UI components
+│   ├── pages/            # Page components (e.g., home, details)
+│   ├── services/         # Angular services (e.g., OlympicService)
+│   ├── models/           # TypeScript interfaces and types
+│   ├── app.module.ts     # Root module
+│   └── app.component.ts  # Root component
+│
+├── assets/
+│   └── mock/             # Mock JSON data
+│
+├── environments/         # Environment configs
+└── index.html, main.ts   # Entry points
+```
+
+## Features
+
+- Load Olympic data from a local JSON file.
+
+- Display list of participating countries.
+
+- Show number of medals per country.
+
+- Present evolution over the years in a line chart.
+
+## Services
+
+- OlympicService: Loads and provides Olympic data via RxJS observables
+
+- ErrorService Handles error display
+
+## Angular Concepts Used
+
+✅ Angular Modules and Components
+✅ Services with Dependency Injection
+✅ RxJS: BehaviorSubject, Observable, tap, catchError, map
+✅ HTTP requests via HttpClient (even if mock JSON)
+✅ Strong typing via TypeScript
+✅ Component communication (Input / Output if applicable)
+✅ Chart integration using ng2-charts
+
+## 🚀 Getting Started
+
+** Prerequisites **
+
+- Node.js ≥ 16
+- Angular CLI ≥ 15
+
+## git clone https://github.com/lostmart/Developpez-le-front-end-en-utilisant-Angular.git
+
+```bash
+cd Developpez-le-front-end-en-utilisant-Angular
+npm install
+ng serve
+```
+
 
 ## Development server
 
@@ -16,6 +79,10 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
    git clone https://github.com/lostmart/Developpez-le-front-end-en-utilisant-Angular
    cd telesport-olympic-dashboard
    ```
+
+App should run at: http://localhost:4200
+
+
 
 ## Build
 
