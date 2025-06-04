@@ -5,6 +5,7 @@
     <p>Participation Count: {{ country.participations.length }}</p>
     <button (click)="goBack()">back</button>
   </section>
+  <app-country-line-graph [country]="country"></app-country-line-graph>
 </ng-container>
 
 <ng-template #loading>

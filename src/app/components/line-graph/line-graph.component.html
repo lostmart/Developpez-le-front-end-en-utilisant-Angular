@@ -1,0 +1,23 @@
+<div class="country-info">
+  <div class="stats">
+    <div class="stat">
+      Number of entries<br /><strong>{{ entries }}</strong>
+    </div>
+    <div class="stat">
+      Total number medals<br /><strong>{{ totalMedals }}</strong>
+    </div>
+    <div class="stat">
+      Total number of athletes<br /><strong>{{ totalAthletes }}</strong>
+    </div>
+  </div>
+</div>
+
+<div class="chart-container">
+  <canvas
+    baseChart
+    [data]="lineChartData"
+    [options]="lineChartOptions"
+    [type]="'line'"
+  >
+  </canvas>
+</div>
