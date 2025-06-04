@@ -9,20 +9,19 @@ This project is a front-end Angular application that displays Olympic data (e.g.
 
 ```
 src/
-│
 ├── app/
-│   ├── components/       # Reusable UI components
-│   ├── pages/            # Page components (e.g., home, details)
-│   ├── services/         # Angular services (e.g., OlympicService)
-│   ├── models/           # TypeScript interfaces and types
-│   ├── app.module.ts     # Root module
-│   └── app.component.ts  # Root component
-│
+│   ├── components/       # Composants réutilisables de l'interface utilisateur
+│   │   ├── country-list/         # Liste des pays
+│   │   └── country-details/      # Détails d'un pays
+│   ├── services/         # Services Angular (e.g., OlympicService)
+│   ├── models/           # Interfaces et types TypeScript
+│   ├── app-routing.module.ts     # Configuration des routes
+│   ├── app.module.ts     # Module principal
+│   └── app.component.ts  # Composant racine
 ├── assets/
-│   └── mock/             # Mock JSON data
-│
-├── environments/         # Environment configs
-└── index.html, main.ts   # Entry points
+│   └── mock/             # Données JSON simulées
+├── environments/         # Configurations d'environnement
+└── index.html, main.ts   # Points d'entrée de l'application
 ```
 
 ## Features
