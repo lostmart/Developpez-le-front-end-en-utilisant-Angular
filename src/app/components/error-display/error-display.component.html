@@ -1,6 +1,7 @@
 <section *ngIf="errorMessage" class="error-container">
-    <div class="error-message">
-        <p>⚠️ {{ errorMessage }}</p>
-        <p>try again later</p>
-    </div>
+  <div class="error-message">
+    <h2><span>Error</span> ⚠️</h2>
+    <p>{{ errorMessage }}</p>
+    <button (click)="goBack()">Back</button>
+  </div>
 </section>

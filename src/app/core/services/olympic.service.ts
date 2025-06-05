@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, delay, map, tap } from 'rxjs/operators';
 import { Olympic } from '../models/Olympic';
 
@@ -73,14 +73,33 @@ export class OlympicService {
    * @param id The ID of the country entry
    * @returns Observable<Olympic | null>
    */
-  getOlympicById(id: number): Observable<Olympic | null> {
+  getOlympicById(id: number): Observable<Olympic> {
+    // Step 1: Check in-memory cache
     if (this.olympics$.value) {
-      return of(this.olympics$.value.find((o) => o.id === id) ?? null);
+      const country = this.olympics$.value.find((o) => o.id === id);
+      if (country) {
+        return of(country);
+      } else {
+        return throwError(() => new Error(`Country with ID ${id} not found.`));
+      }
     }
 
+    // Step 2: Load data from HTTP, then try to find the country
     return this.loadInitialData().pipe(
-      map((olympics) => olympics.find((o) => o.id === id) ?? null),
-      catchError(() => of(null))
+      map((olympics) => {
+        const country = olympics.find((o) => o.id === id);
+        if (country) {
+          return country;
+        } else {
+          throw new Error(`Country with ID ${id} not found.`);
+        }
+      }),
+      catchError((error) => {
+        // Re-throw any manually thrown or HTTP-related errors
+        const message =
+          error instanceof Error ? error.message : 'An unknown error occurred.';
+        return throwError(() => new Error(message));
+      })
     );
   }
 
