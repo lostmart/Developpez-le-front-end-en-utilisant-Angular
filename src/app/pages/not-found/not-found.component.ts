@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-not-found',
   templateUrl: './not-found.component.html',
-  styleUrls: ['./not-found.component.scss']
+  styleUrls: ['./not-found.component.scss'],
+  standalone: true,
+  imports: [CommonModule]
+  
 })
-export class NotFoundComponent implements OnInit {
+export class NotFoundComponent  {
 
-  constructor() { }
+  linkText = 'Go Home';
 
-  ngOnInit(): void {
+  constructor(private router: Router) { }
+
+  goHome() {
+    this.router.navigate(['/']);
   }
 
 }

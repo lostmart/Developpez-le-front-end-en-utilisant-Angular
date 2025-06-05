@@ -1,5 +1,7 @@
 <div class="center">
   <span>404</span>
   <h2>No corresponding page found</h2>
-  <a routerLink="">Go back</a>
+  <button (click)="goHome()">
+    {{ linkText | uppercase }}
+  </button>
 </div>
