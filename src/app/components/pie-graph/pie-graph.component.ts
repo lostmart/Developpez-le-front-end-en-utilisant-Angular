@@ -32,7 +32,7 @@ export class PieGraphComponent implements OnChanges {
     plugins: {
       tooltip: {
         callbacks: {
-          label: (context) => `${context.label}: ${context.parsed} medals`,
+          label: (context) => `🏅 ${context.parsed}`,
         },
       },
     },
@@ -67,11 +67,11 @@ export class PieGraphComponent implements OnChanges {
         {
           data: values,
           backgroundColor: [
-            '#007bff',
-            '#ffc107',
-            '#28a745',
-            '#dc3545',
-            '#6f42c1',
+            '#bfe0f1',
+            '#956065',
+            '#89a1db',
+            '#793d52',
+            '#9780a1',
           ],
         },
       ],

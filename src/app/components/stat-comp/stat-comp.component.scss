@@ -1,0 +1,14 @@
+@import "variables";
+.stat {
+  border: 2px solid $primary;
+  border-radius: 0.5em;
+  padding: 0.5em 1em;
+  font-size: 0.9em;
+  text-align: center;
+
+  strong {
+    font-size: 1.3em;
+    display: block;
+    margin-top: 0.25em;
+  }
+}

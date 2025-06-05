@@ -9,6 +9,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { Router } from '@angular/router';
 import { PieGraphComponent } from 'src/app/components/pie-graph/pie-graph.component';
 import { TitleComponentComponent } from "../../components/ui/title-component/title-component.component";
+import { StatCompComponent } from 'src/app/components/stat-comp/stat-comp.component';
 
 @Component({
   selector: 'app-home',
@@ -20,11 +21,12 @@ import { TitleComponentComponent } from "../../components/ui/title-component/tit
     ErrorDisplayComponent,
     NgChartsModule,
     PieGraphComponent,
-    TitleComponentComponent
+    TitleComponentComponent,
+    StatCompComponent
+    
 ],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  /*  TODO: change to app file  */
   public olympics$: Observable<Olympic[] | null> = of(null);
   public errorMessage: string | null = null;
 
@@ -86,5 +88,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   getTotalAthletes(country: Olympic): number {
     return country.participations.reduce((sum, p) => sum + p.athleteCount, 0);
+  }
+
+  getTotalCountries(): number {
+    return this.olympics.length;
   }
 }

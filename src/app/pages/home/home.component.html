@@ -7,12 +7,20 @@
     <em>Loading...</em>
   </p>
 
+  <div class="stats" *ngIf="olympics$ | async as olympics">
+    <div class="stats">
+      <app-stat-comp
+        statText="Number of countries"
+        [statNumber]="getTotalCountries()"
+      ></app-stat-comp>
+      <app-stat-comp
+        statText="Number of JO's"
+        [statNumber]="getTotalCountries()"
+      ></app-stat-comp>
+    </div>
+  </div>
   <app-pie-graph
     *ngIf="olympics$ | async as olympics"
     [data]="olympics"
   ></app-pie-graph>
-
-  <button>
-    <span class="material-symbols-outlined">license</span>
-  </button>
 </main>

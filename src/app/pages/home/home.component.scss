@@ -3,6 +3,12 @@
 .home-container {
   max-width: 600px;
   margin: 1em auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  min-height: 92dvh;
+  padding: 1em;
+
   h2 {
     background-color: $primary;
     padding: 0.25em;
@@ -10,6 +16,12 @@
     color: white;
     font-weight: 200;
     border-radius: 0.25em;
+  }
+
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
   }
 }
 

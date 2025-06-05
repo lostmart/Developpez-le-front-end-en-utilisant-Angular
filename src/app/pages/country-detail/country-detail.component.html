@@ -1,11 +1,9 @@
 <ng-container *ngIf="country$ | async as country; else loading">
   <section class="country-details">
     <app-title-component [title]="country.country" />
-    <p>Total Medals: {{ country.country }}</p>
-    <p>Participation Count: {{ country.participations.length }}</p>
+    <app-country-line-graph [country]="country"></app-country-line-graph>
     <button (click)="goBack()">back</button>
   </section>
-  <app-country-line-graph [country]="country"></app-country-line-graph>
 </ng-container>
 
 <ng-template #loading>

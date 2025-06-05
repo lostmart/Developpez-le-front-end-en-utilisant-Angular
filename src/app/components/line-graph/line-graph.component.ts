@@ -3,12 +3,11 @@ import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { CommonModule } from '@angular/common';
 import { NgChartsModule } from 'ng2-charts';
 import { Olympic } from 'src/app/core/models/Olympic';
-import { TitleComponentComponent } from '../ui/title-component/title-component.component';
 
 @Component({
   selector: 'app-country-line-graph',
   standalone: true,
-  imports: [CommonModule, NgChartsModule, TitleComponentComponent],
+  imports: [CommonModule, NgChartsModule],
   templateUrl: './line-graph.component.html',
   styleUrls: ['./line-graph.component.scss'],
 })
@@ -33,7 +32,7 @@ export class CountryLineGraphComponent implements OnChanges {
     },
   };
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(_changes: SimpleChanges): void {
     if (this.country) {
       this.buildChartData();
     }
