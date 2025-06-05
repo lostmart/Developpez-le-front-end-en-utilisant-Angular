@@ -55,23 +55,27 @@ export class OlympicService {
   }
 
   /**
- * Returns all participation entries from all countries.
- *
- * @returns Observable<Participation[]>
- */
-getAllParticipations(): Observable<Participation[]> {
-  if (this.olympics$.value) {
-    const participations = this.olympics$.value.flatMap(o => o.participations);
-    return of(participations);
+   * Returns all participation entries from all countries.
+   *
+   * @returns Observable<Participation[]>
+   */
+  getAllParticipations(): Observable<Participation[]> {
+    if (this.olympics$.value) {
+      const participations = this.olympics$.value.flatMap(
+        (o) => o.participations
+      );
+      return of(participations);
+    }
+    /**
+     * Returns number of medals won by all athletes from all countries
+     *
+     * @returns Observable<Participation[]>
+     */
+
+    return this.loadInitialData().pipe(
+      map((olympics) => olympics.flatMap((o) => o.participations))
+    );
   }
-
-  return this.loadInitialData().pipe(
-    map((olympics) =>
-      olympics.flatMap((o) => o.participations)
-    )
-  );
-}
-
 
   /**
    * Provides the current observable stream of Olympic data.
@@ -120,6 +124,54 @@ getAllParticipations(): Observable<Participation[]> {
           error instanceof Error ? error.message : 'An unknown error occurred.';
         return throwError(() => new Error(message));
       })
+    );
+  }
+
+  /**
+   * Returns all participation entries for a given country by ID.
+   *
+   * @param id The country ID
+   * @returns Observable<Participation[]>
+   */
+  getParticipationsByCountryId(id: number): Observable<Participation[]> {
+    if (this.olympics$.value) {
+      const country = this.olympics$.value.find((o) => o.id === id);
+      return of(country?.participations || []);
+    }
+
+    return this.loadInitialData().pipe(
+      map((olympics) => {
+        const country = olympics.find((o) => o.id === id);
+        return country?.participations || [];
+      })
+    );
+  }
+
+  /**
+   * Returns the total number of medals for a given country by ID.
+   *
+   * @param id The country ID
+   * @returns Observable<number>
+   */
+  getTotalMedalsByCountryId(id: number): Observable<number> {
+    return this.getParticipationsByCountryId(id).pipe(
+      map((participations) =>
+        participations.reduce((sum, p) => sum + p.medalsCount, 0)
+      )
+    );
+  }
+
+  /**
+   * Returns the total number of athletes for a given country by ID.
+   *
+   * @param id The country ID
+   * @returns Observable<number>
+   */
+  getTotalAthletesByCountryId(id: number): Observable<number> {
+    return this.getParticipationsByCountryId(id).pipe(
+      map((participations) =>
+        participations.reduce((sum, p) => sum + p.athleteCount, 0)
+      )
     );
   }
 

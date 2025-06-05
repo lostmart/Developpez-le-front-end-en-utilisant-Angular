@@ -11,6 +11,18 @@
     flex-direction: column;
     gap: 1em;
     min-height: 70dvh;
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 0.5em;
+      flex-direction: column;
+    }
+    @media screen and (min-width: 576px) {
+      .stats {
+        flex-direction: row;
+        gap: 1em;
+      }
+    }
   }
 
   button {

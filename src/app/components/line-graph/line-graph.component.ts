@@ -17,10 +17,6 @@ import { Participation } from 'src/app/core/models/Participation';
 export class CountryLineGraphComponent implements OnChanges {
   @Input() country!: Olympic;
 
-  public entries = 0;
-  public totalMedals = 0;
-  public totalAthletes = 0;
-
   public lineChartData: ChartData<'line'> = {
     labels: [],
     datasets: [],
@@ -46,13 +42,6 @@ export class CountryLineGraphComponent implements OnChanges {
   
     const labels: string[] = participations.map((p) => p.year.toString());
     const data: number[] = participations.map((p) => p.medalsCount);
-  
-    this.entries = participations.length;
-    this.totalMedals = data.reduce((a, b) => a + b, 0);
-    this.totalAthletes = participations.reduce(
-      (sum, p) => sum + p.athleteCount,
-      0
-    );
   
     this.lineChartData = {
       labels,

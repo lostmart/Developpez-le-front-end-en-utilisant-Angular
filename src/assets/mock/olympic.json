@@ -23,6 +23,13 @@
         "city": "Tokyo",
         "medalsCount": 40,
         "athleteCount": 381
+      },
+      {
+        "id": 4,
+        "year": 2024,
+        "city": "Paris",
+        "medalsCount": 12,
+        "athleteCount": 375
       }
     ]
   },
@@ -104,6 +111,13 @@
         "city": "Tokyo",
         "medalsCount": 37,
         "athleteCount": 425
+      },
+      {
+        "id": 4,
+        "year": 2024,
+        "city": "Beijing",
+        "medalsCount": 12,
+        "athleteCount": 425
       }
     ]
   },
@@ -130,6 +144,13 @@
         "year": 2020,
         "city": "Tokyo",
         "medalsCount": 33,
+        "athleteCount": 403
+      },
+      {
+        "id": 4,
+        "year": 2024,
+        "city": "Beijing",
+        "medalsCount": 12,
         "athleteCount": 403
       }
     ]

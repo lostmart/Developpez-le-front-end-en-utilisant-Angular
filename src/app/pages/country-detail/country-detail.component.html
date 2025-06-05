@@ -8,6 +8,20 @@
     <section class="country-details">
       <div class="country-info">
         <app-title-component [title]="country.country" />
+        <div class="stats">
+          <app-stat-comp
+            statText="Number of entries"
+            [statNumber]="country.participations.length"
+          ></app-stat-comp>
+          <app-stat-comp
+            statText="Total number of medals"
+            [statNumber]="totalMedals"
+          ></app-stat-comp>
+          <app-stat-comp
+            statText="Total number of athletes"
+            [statNumber]="totalAthletes"
+          ></app-stat-comp>
+        </div>
         <app-country-line-graph [country]="country"></app-country-line-graph>
       </div>
       <button (click)="goBack()">Back</button>
