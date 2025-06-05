@@ -1,11 +1,13 @@
 <ng-container *ngIf="country$ | async as country; else loading">
   <section class="country-details">
-    <app-title-component [title]="country.country" />
-    <app-country-line-graph [country]="country"></app-country-line-graph>
-    <button (click)="goBack()">back</button>
+    <div class="country-info">
+      <app-title-component [title]="country.country" />
+      <app-country-line-graph [country]="country"></app-country-line-graph>
+    </div>
+    <button (click)="goBack()">Back</button>
   </section>
 </ng-container>
 
 <ng-template #loading>
-  <p>Loading country details...</p>
+  <p class="loading">Loading...</p>
 </ng-template>

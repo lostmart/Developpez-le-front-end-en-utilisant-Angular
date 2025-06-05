@@ -6,6 +6,7 @@ import { Olympic } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { TitleComponentComponent } from '../../components/ui/title-component/title-component.component';
 import { CountryLineGraphComponent } from 'src/app/components/line-graph/line-graph.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-country-detail',
@@ -16,14 +17,16 @@ import { CountryLineGraphComponent } from 'src/app/components/line-graph/line-gr
 })
 export class CountryDetailComponent implements OnInit {
   country$ = of<Olympic | null>(null);
+  public errorMessage: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
-    private olympicService: OlympicService
+    private olympicService: OlympicService,
+    private router: Router
   ) {}
 
   goBack(): void {
-    window.history.back();
+    this.router.navigate(['/']);
   }
 
   ngOnInit(): void {

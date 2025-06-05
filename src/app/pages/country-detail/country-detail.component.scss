@@ -4,12 +4,14 @@
   // put this in a mixin
   max-width: 600px;
   margin: 1em auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 1em;
-  min-height: 92dvh;
   padding: 1em;
+
+  .country-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    min-height: 70dvh;
+  }
 
   button {
     margin-top: 1em;
@@ -26,6 +28,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 1.2em;
+    width: 100%;
   }
 }
 
