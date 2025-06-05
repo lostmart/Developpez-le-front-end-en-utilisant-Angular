@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, delay, map, tap } from 'rxjs/operators';
 import { Olympic } from '../models/Olympic';
+import { Participation } from '../models/Participation';
 
 /**
  * OlympicService handles the fetching, caching, and distribution
  * of Olympic game data throughout the application.
  *
- * @author
+ * @author Martin P
  * @version 1.0
  */
 @Injectable({
@@ -52,6 +53,25 @@ export class OlympicService {
       })
     );
   }
+
+  /**
+ * Returns all participation entries from all countries.
+ *
+ * @returns Observable<Participation[]>
+ */
+getAllParticipations(): Observable<Participation[]> {
+  if (this.olympics$.value) {
+    const participations = this.olympics$.value.flatMap(o => o.participations);
+    return of(participations);
+  }
+
+  return this.loadInitialData().pipe(
+    map((olympics) =>
+      olympics.flatMap((o) => o.participations)
+    )
+  );
+}
+
 
   /**
    * Provides the current observable stream of Olympic data.
