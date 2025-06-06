@@ -5,23 +5,19 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-error-display',
   standalone: true,
-  imports: [CommonModule], // Required for *ngIf, *ngFor etc.
+  imports: [CommonModule],
   templateUrl: './error-display.component.html',
   styleUrls: ['./error-display.component.scss'],
 })
 export class ErrorDisplayComponent implements OnChanges {
   constructor(private router: Router) {}
   @Input() errorMessage: string | null = null;
-  showError = false;
+  showError = null as boolean | null;
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['errorMessage']) {
       this.showError = !!this.errorMessage;
     }
-  }
-
-  dismissError() {
-    this.showError = false;
   }
 
   goBack() {
