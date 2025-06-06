@@ -1,11 +1,10 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
+import { ChartConfiguration, ChartData } from 'chart.js';
 import { CommonModule } from '@angular/common';
 import { NgChartsModule } from 'ng2-charts';
 import { Olympic } from 'src/app/core/models/Olympic';
 
 import { Participation } from 'src/app/core/models/Participation';
-
 
 @Component({
   selector: 'app-country-line-graph',
@@ -39,10 +38,10 @@ export class CountryLineGraphComponent implements OnChanges {
 
   private buildChartData(): void {
     const participations: Participation[] = this.country.participations;
-  
+
     const labels: string[] = participations.map((p) => p.year.toString());
     const data: number[] = participations.map((p) => p.medalsCount);
-  
+
     this.lineChartData = {
       labels,
       datasets: [
@@ -57,5 +56,4 @@ export class CountryLineGraphComponent implements OnChanges {
       ],
     };
   }
-  
 }

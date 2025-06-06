@@ -48,7 +48,7 @@ export class PieGraphComponent implements OnChanges {
     const activePoint = event.active?.[0];
     if (activePoint) {
       const index = activePoint.index;
-      const country = this.data[index]; // ou this.olympics[index]
+      const country = this.data[index];
       if (country) {
         this.router.navigate(['/country', country.id]);
       }

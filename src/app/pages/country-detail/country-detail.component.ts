@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, of, switchMap, takeUntil, Subject } from 'rxjs';
+import { catchError, of, Subject, switchMap, takeUntil } from 'rxjs';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { TitleComponentComponent } from '../../components/ui/title-component/title-component.component';
@@ -9,8 +9,6 @@ import { CountryLineGraphComponent } from 'src/app/components/line-graph/line-gr
 import { ErrorDisplayComponent } from 'src/app/components/error-display/error-display.component';
 import { Participation } from 'src/app/core/models/Participation';
 import { StatCompComponent } from 'src/app/components/stat-comp/stat-comp.component';
-import { Subscription } from 'rxjs';
-
 
 @Component({
   selector: 'app-country-detail',
@@ -34,7 +32,7 @@ export class CountryDetailComponent implements OnInit, OnDestroy {
   public totalMedals: number = 0;
   public totalAthletes: number = 0;
 
-  private subscriptions = new Subscription(); // aggregate all subs here
+  private destroy$ = new Subject<void>();
 
   constructor(
     private route: ActivatedRoute,
@@ -59,59 +57,23 @@ export class CountryDetailComponent implements OnInit, OnDestroy {
       })
     );
 
-    const participationSub = this.route.paramMap
-      .pipe(
-        switchMap((params) => {
-          const id = Number(params.get('id'));
-          return this.olympicService.getParticipationsByCountryId(id);
-        }),
-        catchError((error) => {
-          console.error('Failed to load participations', error);
-          this.errorMessage = 'Failed to load participations';
-          return of([]);
-        })
-      )
-      .subscribe((data) => {
-        this.participations = data;
-      });
-
-    const medalSub = this.route.paramMap
-      .pipe(
-        switchMap((params) => {
-          const id = Number(params.get('id'));
-          return this.olympicService.getTotalMedalsByCountryId(id);
-        }),
-        catchError((error) => {
-          console.error('Failed to load medal count', error);
-          return of(0);
-        })
-      )
-      .subscribe((count) => {
-        this.totalMedals = count;
-      });
-
-    const athleteSub = this.route.paramMap
-      .pipe(
-        switchMap((params) => {
-          const id = Number(params.get('id'));
-          return this.olympicService.getTotalAthletesByCountryId(id);
-        }),
-        catchError((error) => {
-          console.error('Failed to load athlete count', error);
-          return of(0);
-        })
-      )
-      .subscribe((count) => {
-        this.totalAthletes = count;
-      });
-
-    // Collect all subscriptions
-    this.subscriptions.add(participationSub);
-    this.subscriptions.add(medalSub);
-    this.subscriptions.add(athleteSub);
+    this.country$.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((olympic) => {
+      if (olympic) {
+        this.participations = olympic.participations || [];
+        this.totalMedals = this.participations.reduce((sum, participation) => sum + participation.medalsCount, 0);
+        this.totalAthletes = this.participations.reduce((sum, participation) => sum + participation.athleteCount, 0);
+      } else {
+        this.participations = [];
+        this.totalMedals = 0;
+        this.totalAthletes = 0;
+      }
+    });
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe(); // unsubscribe all at once
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
